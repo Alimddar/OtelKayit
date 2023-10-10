@@ -5,8 +5,15 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
+
+# Kendi Modellerimizi Dahil Edelim
+from .models import *
+
 # Single MiddleWare
 from django.contrib.auth.decorators import login_required
+
+# Message
+from django.contrib import messages
 
 
 
@@ -23,11 +30,15 @@ def index(request):
 
             if giris is not None:
                 login(request,giris)
-                # Değişecek Otelin Kendisine Girecek
+                # Message Geç
+                messages.success(request,"Giriş Başarılı")
+                # Yönlendir
                 return redirect('oteldashboard')
             else:
+                messages.error(request,'Kullanıcı Adı veya Şifre Hatalı!')
                 return redirect('home')
         else:
+            messages.warning(request,"Boş Alanları Doldurunuz.")
             return redirect('home')
 
     return render(request, "index.html")
@@ -36,8 +47,14 @@ def index(request):
 @login_required(login_url="home")
 def otel(request):
 
-    return render(request, "otel.html")
+    context = {}
 
+    odalar = OtelOda.objects.filter(otel__owner = request.user).all()
+
+    context['odalar'] = odalar
+
+
+    return render(request, "otel.html", context)
 
 
 # 404 sayfası için
