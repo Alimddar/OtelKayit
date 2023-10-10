@@ -61,3 +61,8 @@ def otel(request):
 def hatasayfasi(request):
 
     return render(request, '404.html')
+
+
+
+
+
