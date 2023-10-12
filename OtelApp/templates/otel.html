@@ -6,7 +6,10 @@ Otel Sistemi
 
 
 {% block site-icerik %}
+
+<!-- Navbar Includes -->
 {% include "./Components/_navbar.html" %}
+
 <div class="container">
     <div class="row justify-content-between mt-3">
         <div class="col-md-3">
@@ -15,26 +18,30 @@ Otel Sistemi
         <div class="col-md-9">
             <h5 class="text-center">Odalar</h5>
             <div class="row justify-content-between">
-                {% for oda in odalar %}
-                <div class="col-md-3">
-                    {% if oda.roomclean == True %}
-                    <div class="mb-1">
-                        <span class="badge bg-info text-bg-succes">Temiz</span>
+                {% if odalar %}
+                    {% for oda in odalar %}
+                    <div class="col-md-3">
+                        {% if oda.roomclean == True %}
+                        <div class="mb-1">
+                            <span class="badge bg-info text-bg-succes">Temiz</span>
+                        </div>
+                        {% elif oda.roomdefective == True %}
+                        <div class="mb-1">
+                            <span class="badge bg-dark text-bg-succes">Arızalı</span>
+                        </div>
+                        {% elif oda.roomclean == False %}
+                        <div class="mb-1">
+                            <span class="badge bg-danger text-bg-succes">Kirli</span>
+                        </div>
+                        {% else %}
+                        <span class="badge text-bg-info">Kullanılabilir</span>
+                        {% endif %}
+                        <button class="btn btn-danger mb-2 mt-0">{{oda.roomnumber}}</button>
                     </div>
-                    {% elif oda.roomdefective == True %}
-                    <div class="mb-1">
-                        <span class="badge bg-dark text-bg-succes">Arızalı</span>
-                    </div>
-                    {% elif oda.roomclean == False %}
-                    <div class="mb-1">
-                        <span class="badge bg-danger text-bg-succes">Kirli</span>
-                    </div>
-                    {% else %}
-                    <span class="badge text-bg-info">Kullanılabilir</span>
-                    {% endif %}
-                    <button class="btn btn-danger mb-2 mt-0">{{oda.roomnumber}}</button>
-                </div>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <p>Oda Eklemelisin</p>
+                {% endif %}
             </div>
         </div>
     </div>

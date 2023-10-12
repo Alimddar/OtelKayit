@@ -26,9 +26,16 @@ from OtelApp.views import *
 
 
 urlpatterns = [
+    # Sayfa Pathleri
     path('admin/', admin.site.urls),
     path('', index, name="home"),
     path('otel', otel, name="oteldashboard"),
-    
+    path('blokaj', blokaj, name="blok"),
+    path('muhasebe', muhasebe, name="muhasebe"),
+
+    # Api Path burada!
+
+
+    # 404 Path'idir!.
     re_path(r'^.*/$', hatasayfasi, name="404"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
