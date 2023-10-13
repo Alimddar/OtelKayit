@@ -22,10 +22,10 @@ class OtelOda(models.Model):
     roombadcount = models.IntegerField(("Oda Yatak Sayısı"))
     roomclean = models.BooleanField(("Oda Temiz Mi?"), default=True)
     roomdefective = models.BooleanField(("Oda Arızalı Mı?"), default=False)
-    roomactive = models.BooleanField(("Oda Aktif Mi?"), default=True)
+    roomactive = models.BooleanField(("Odayı Kapat!"), default=False)
     roomprice = models.IntegerField(("Odanın Fiyatı"))
     roomproblemreason = models.TextField(("Odanın Problemi Nedir?"), blank=True)
-    roomisempty = models.BooleanField(("Oda Dolu Mu?"))
+    roomisempty = models.BooleanField(("Oda Dolu Mu?"),default=True)
 
     def __str__(self) -> str:
         return self.roomtype
@@ -44,6 +44,8 @@ class KonukBilgileri(models.Model):
     def __str__(self) -> str:
         return self.first_name
     
+
+
 class Muhasebe(models.Model):
     date = models.DateField(("Tarih"), auto_now_add=True)
     room = models.ForeignKey(OtelOda, verbose_name=("Oda"), on_delete=models.CASCADE)
@@ -52,3 +54,8 @@ class Muhasebe(models.Model):
 
     def __str__(self) -> str:
         return self.date
+        
+    def ucret_hesapla(self):
+        fiat = self.room.roomprice
+        self.calculate = fiat
+        self.save()

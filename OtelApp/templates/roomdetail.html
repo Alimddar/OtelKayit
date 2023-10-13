@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+
+{% block site-title %}
+{{odalar.roomnumber}} Numaralı Oda
+{% endblock site-title %}
+
+{% block site-icerik %}
+
+<!-- Navbarı içeri al -->
+{% include "./Components/_navbar.html" %}
+
+    <div class="container">
+        <h1>{{odalar.roomtype}}</h1>
+    </div>
+{% endblock site-icerik %}

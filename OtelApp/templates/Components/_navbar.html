@@ -8,13 +8,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'oteldashboard' %}"><i class="fa-solid fa-house"></i> Anasayfa</a>
+          <a class="nav-link {% if request.path == '/otel' %}
+            active
+          {% endif %}" aria-current="page" href="{% url 'oteldashboard' %}"><i class="fa-solid fa-house"></i>
+            Anasayfa</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'blok' %}"><i class="fa-solid fa-thumbtack"></i> Blokaj</a>
+          <a class="nav-link {% if request.path == '/blokaj' %}
+            active
+          {% endif %}" href="{% url 'blok' %}"><i class="fa-solid fa-thumbtack"></i> Blokaj</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'muhasebe' %}"><i class="fa-solid fa-calculator"></i> Muhasebe</a>
+          <a class="nav-link {% if request.path == '/muhasebe' %}
+              active
+          {% endif %}" href="{% url 'muhasebe' %}"><i class="fa-solid fa-calculator"></i> Muhasebe</a>
         </li>
       </ul>
       <form class="d-flex" role="search">
@@ -25,6 +32,12 @@
         <button class="btn btn-outline-success" id="darkModeToggle"><i class="fa-solid fa-moon"></i> / <i
             class="fa-solid fa-sun"></i></button>
       </div>
+      {% if request.user.is_authenticated %}
+      <div class="ms-1">
+        <a href=""><button class="btn btn-outline-danger">Çıkış</button></a>
+      </div>
+      {% endif %}
+
     </div>
   </div>
 </nav>

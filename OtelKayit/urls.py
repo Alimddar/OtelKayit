@@ -32,9 +32,10 @@ urlpatterns = [
     path('otel', otel, name="oteldashboard"),
     path('blokaj', blokaj, name="blok"),
     path('muhasebe', muhasebe, name="muhasebe"),
+    path('odadetay/<odaId>', detailroom, name="odadetay"),
 
     # Api Path burada!
-
+    
 
     # 404 Path'idir!.
     re_path(r'^.*/$', hatasayfasi, name="404"),

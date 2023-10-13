@@ -16,6 +16,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 
+# Form.py çek
+from .form import *
+
 
 
 # Create your views here.
@@ -67,6 +70,19 @@ def blokaj(request):
 def muhasebe(request):
     
     return render(request, "muhasebe.html")
+
+
+@login_required(login_url="home")
+def detailroom(request,odaId):
+
+    context = {}
+    room = OtelOda.objects.filter(id = odaId).first()
+    context['odalar'] = room
+
+    # Formu fronta yollayacağız
+    roomForm = UpdateRoomDetail(instance = room)
+
+    return render(request, 'roomdetail.html',context)
 
 
 # 404 sayfası için
