@@ -9,6 +9,6 @@ class UpdateRoomDetail(forms.ModelForm):
     class Meta:
 
         model = OtelOda
-        fields = "__all__"
+        fields = ["roomnumber","roomtype","roombadcount","roomclean","roomdefective","roomactive","roomprice","roomproblemreason","roomisempty"]
 
 

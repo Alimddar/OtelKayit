@@ -81,6 +81,7 @@ def detailroom(request,odaId):
 
     # Formu fronta yollayacağız
     roomForm = UpdateRoomDetail(instance = room)
+    context['form'] = roomForm
 
     return render(request, 'roomdetail.html',context)
 
