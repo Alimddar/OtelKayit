@@ -1,22 +1,34 @@
-const input = document.getElementsByTagName('input');
-const label = document.getElementsByTagName('label');
+const inputs = document.getElementsByTagName('input');
+const labels = document.getElementsByTagName('label');
 
-
-for(let i = 0; i < label.length; i++ ){
-    label[i].classList.add('form-label')
+for (let i = 0; i < labels.length; i++) {
+    const label = labels[i];
+    label.classList.add('form-label');
+    
     // Yeni div oluştur
     const div = document.createElement('div');
     div.classList.add("mb-3");
+    
     // Labellerı divin içine taşı
-    label[i].parentElement.insertBefore(div, label[i]);
-    div.appendChild(label[i])
-}
-
-
-for(let i = 0; i < input.length; i++){
-    if(input[i].type == 'text' || input[i].type == 'number'){
-        input[i].classList.add('form-control')
-    }else if (input[i].type == 'checkbox'){
-        input[i].classList.add('form-check-input')
+    label.parentElement.insertBefore(div, label);
+    div.appendChild(label);
+    
+    // İlgili inputu bul
+    for (let j = 0; j < inputs.length; j++) {
+        if (inputs[j].type == 'text' || inputs[j].type == 'number') {
+            inputs[j].classList.add('form-control');
+            
+            // İlgili label ile inputu bir araya getir
+            if (label.htmlFor === inputs[j].id) {
+                label.parentElement.insertBefore(inputs[j], label.nextSibling);
+            }
+        } else if (inputs[j].type == 'checkbox') {
+            inputs[j].classList.add('form-check-input','ms-2');
+            
+            // İlgili label ile inputu bir araya getir
+            if (label.htmlFor === inputs[j].id) {
+                label.parentElement.insertBefore(inputs[j], label.nextSibling);
+            }
+        }
     }
 }
