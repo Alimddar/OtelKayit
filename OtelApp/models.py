@@ -1,5 +1,6 @@
 from django.db import models
 
+from django.core import validators
 # User modelini çek
 from django.contrib.auth.models import User
 
@@ -19,13 +20,13 @@ class OtelOda(models.Model):
     otel = models.ForeignKey(OtelYonetim, verbose_name=("Otelin Adı"), on_delete=models.CASCADE)
     roomnumber = models.IntegerField(("Oda Numarası"), default=1)
     roomtype = models.CharField(("Oda Tipi"),max_length=50)
-    roombadcount = models.IntegerField(("Oda Yatak Sayısı"))
+    roombadcount = models.IntegerField(("Oda Yatak Sayısı"), default=1, validators=[validators.MinValueValidator(1, message="En Az Bir Yatak Olmalıdır!"),validators.MaxValueValidator(6, message="6 Yataktan Daha Fazla Ekleyemezsin!")])
     roomclean = models.BooleanField(("Oda Temiz Mi?"), default=True)
     roomdefective = models.BooleanField(("Oda Arızalı Mı?"), default=False)
     roomactive = models.BooleanField(("Odayı Kapat!"), default=False)
     roomprice = models.IntegerField(("Odanın Fiyatı"))
     roomproblemreason = models.TextField(("Odanın Problemi Nedir?"), blank=True)
-    roomisempty = models.BooleanField(("Oda Dolu Mu?"),default=True)
+    roomisempty = models.BooleanField(("Oda Dolu Mu?"),default=False)
 
     def __str__(self) -> str:
         return self.roomtype

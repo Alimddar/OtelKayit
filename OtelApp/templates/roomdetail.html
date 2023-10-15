@@ -11,9 +11,57 @@
 <!-- Navbarı içeri al -->
 {% include "./Components/_navbar.html" %}
 <div class="container">
-    <form action="" method="post">
-        {{form}}
-    </form>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <h5 class="text-center mt-3">Oda Özellikleri</h5>
+            <div class="card">
+                <div class="card-body">
+                    <form action="{% url 'odadetay' odalar.id %}" method="post">
+                        {% csrf_token %}
+                        {{form}}
+                        <div class="text-center">
+                            <button class="btn btn-success">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if odalar.roomactive == True or odalar.roomdefective == True %}
+    {% else %}
+    <div class="row justify-content-around mt-5">
+        {% for i in count %}
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-center mt-3">Müşteri bilgileri</h5>
+                    <form action="{% url 'odadetay' odalar.id %}" method="post">
+                        {% csrf_token %}
+                        <label for="first-name">İsim</label>
+                        <input type="text" placeholder="Adınız" id="first-name" name="first">
+                        <label for="last-name">Soyadınız</label>
+                        <input type="text" placeholder="Soyadınız" id="last-name" name="last">
+                        <label for="nationality">Uyruğu</label>
+                        <input type="text" placeholder="Uyruğu" id="nationality" name="uyruk">
+                        <label for="tckimlik">Tc Numarası</label>
+                        <input type="text" placeholder="TC Kimlik Numarası" id="tckimlik" name="tc">
+                        <label for="passaport">Passaport</label>
+                        <input type="text" placeholder="Passaport Numarası" id="passaport" name="passaport">
+                        <label for="check-in">Check-In Tarihi</label>
+                        <input type="date" id="check-in" name="checkin">
+                        <label for="checkout">Check-Out Tarihi</label>
+                        <input type="date" id="checkout" name="checkout">
+                        <div class="text-center">
+                            <button class="btn btn-success">Kaydet</button>
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
 </div>
 
 {% endblock site-icerik %}

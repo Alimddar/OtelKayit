@@ -77,11 +77,20 @@ def detailroom(request,odaId):
 
     context = {}
     room = OtelOda.objects.filter(id = odaId).first()
+    context['count'] = range(room.roombadcount)
     context['odalar'] = room
 
     # Formu fronta yollayacağız
     roomForm = UpdateRoomDetail(instance = room)
     context['form'] = roomForm
+
+    if request.method == "POST":
+        updateRoom = UpdateRoomDetail(request.POST,instance = room)
+        if updateRoom.is_valid():
+            updateRoom.save()
+            return redirect('odadetay', odaId)
+        else:
+            return redirect('404')
 
     return render(request, 'roomdetail.html',context)
 
