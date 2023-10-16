@@ -23,6 +23,7 @@ from django.urls import path, re_path
 
 # View çek
 from OtelApp.views import *
+from OtelAppApi.views import *
 
 
 urlpatterns = [
@@ -35,7 +36,7 @@ urlpatterns = [
     path('odadetay/<odaId>', detailroom, name="odadetay"),
 
     # Api Path burada!
-    
+    path('api/v1/odadetay/<odaId>', guestregister, name="misafirkayit"),
 
     # 404 Path'idir!.
     re_path(r'^.*/$', hatasayfasi, name="404"),

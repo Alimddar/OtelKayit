@@ -76,6 +76,7 @@ def muhasebe(request):
 def detailroom(request,odaId):
 
     context = {}
+
     room = OtelOda.objects.filter(id = odaId).first()
     context['count'] = range(room.roombadcount)
     context['odalar'] = room
@@ -84,6 +85,11 @@ def detailroom(request,odaId):
     roomForm = UpdateRoomDetail(instance = room)
     context['form'] = roomForm
 
+    musteri = KonukBilgileri.objects.filter(room = room).all()
+    context['musteriler'] = musteri
+
+
+
     if request.method == "POST":
         updateRoom = UpdateRoomDetail(request.POST,instance = room)
         if updateRoom.is_valid():
@@ -91,8 +97,7 @@ def detailroom(request,odaId):
             return redirect('odadetay', odaId)
         else:
             return redirect('404')
-
-    return render(request, 'roomdetail.html',context)
+    return render(request, 'roomdetail.html', context)
 
 
 # 404 sayfası için
