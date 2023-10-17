@@ -1,11 +1,11 @@
-FROM python:3.8.2
+FROM python:3.12
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-WORKDIR /proje
+WORKDIR /home/OtelApp
 
-COPY requirements.txt /proje/
+COPY requirements.txt /home/OtelApp/
 
 RUN pip install -r requirements.txt
 
