@@ -1,52 +1,53 @@
 {% extends "base.html" %}
 
 {% block site-title %}
-
+    {{ kisi.first_name }} {{ kisi.last_name }} Detay Sayfası
 {% endblock site-title %}
 
 
+
 {% block site-icerik %}
-<!-- Navbarı Çek -->
-{% include "./Components/_navbar.html" %}
-<div class="row justify-content-around m-0">
-    <div class="col-md-6">
-        <h5 class="text-center mt-3">Müşteri Bilgileri</h5>
-        <div class="card shadow-lg">
-            <div class="card-body">
-                <div class="row justify-content-between">
-                    <div class="col-md-6">
-                        <p class="text-center"><strong>Adı:</strong> </p>
-                        <p class="text-center"><strong>Uyruğu:</strong></p>
-                        {% if kisi.guest_tc != "" %}
-                        <p class="text-center"><strong>Tc Kimlik Numarası:</strong></p>
-                        {% else %}
-                        <p class="text-center"><strong>Passaport ID Numarası:</strong></p>
-                        {% endif %}
-                        <p class="text-center"><strong>Odaya Giriş Tarihi:</strong></p>
-                        <p class="text-center"><strong>Odadan Çıkış Yapacağı Tarih:</strong></p>
+    <!-- Navbarı Çek -->
+    {% include "./Components/_navbar.html" %}
+    <div class="row justify-content-around m-0">
+        <div class="col-md-6">
+            <h5 class="text-center mt-3">Müşteri Bilgileri</h5>
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <div class="row justify-content-between">
+                        <div class="col-md-6">
+                            <p class="text-center"><strong>Adı:</strong></p>
+                            <p class="text-center"><strong>Uyruğu:</strong></p>
+                            {% if kisi.guest_tc != "" %}
+                                <p class="text-center"><strong>Tc Kimlik Numarası:</strong></p>
+                            {% else %}
+                                <p class="text-center"><strong>Passaport ID Numarası:</strong></p>
+                            {% endif %}
+                            <p class="text-center"><strong>Odaya Giriş Tarihi:</strong></p>
+                            <p class="text-center"><strong>Odadan Çıkış Yapacağı Tarih:</strong></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-center">{{ kisi.first_name }} {{ kisi.last_name }}</p>
+                            <p class="text-center">{{ kisi.nationality }} </p>
+                            {% if kisi.guest_tc != "" %}
+                                <p class="text-center">{{ kisi.guest_tc }} </p>
+                            {% else %}
+                                <p class="text-center">{{ kisi.guest_id }} </p>
+                            {% endif %}
+                            <p class="text-center">{{ kisi.checkin_date }} </p>
+                            <p class="text-center">{{ kisi.checkout_date }} </p>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <p class="text-center">{{kisi.first_name}} {{kisi.last_name}}</p>
-                        <p class="text-center">{{kisi.nationality}} </p>
-                        {% if kisi.guest_tc != "" %}
-                        <p class="text-center">{{kisi.guest_tc}} </p>
-                        {% else %}
-                        <p class="text-center">{{kisi.guest_id}} </p>
-                        {% endif %}
-                        <p class="text-center">{{kisi.checkin_date}} </p>
-                        <p class="text-center">{{kisi.checkout_date}} </p>
-                    </div>
+                    <hr>
+                    <form action="{% url 'musteridetay' kisi.id %}" method="post">
+                        {% csrf_token %}
+                        {{ musteriform }}
+                        <div class="text-center">
+                            <button class="btn btn-success">Notu Kaydet</button>
+                        </div>
+                    </form>
                 </div>
-                <hr>
-                <form action="{% url 'musteridetay' kisi.id %}" method="post">
-                    {% csrf_token %}
-                    {{musteriform}}
-                    <div class="text-center">
-                        <button class="btn btn-success">Notu Kaydet</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
-</div>
 {% endblock site-icerik %}
