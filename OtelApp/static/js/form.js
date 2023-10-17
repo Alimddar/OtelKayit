@@ -4,18 +4,37 @@ const select = document.getElementsByTagName('select');
 const textarea = document.getElementById('id_roomproblemreason')
 const countrySelect = document.getElementById('countrySelect')
 const passaport = document.getElementById('passaport')
+const textareaAll = document.getElementsByTagName('textarea')
+const tckimlik = document.getElementById('tckimlik')
 
-if(countrySelect){
+if (countrySelect) {
     const country = async () => {
         try {
             const request = await fetch('https://restcountries.com/v3.1/all')
-            const response = await request.json()
-            console.log(response);
-            response.forEach(country => {
+            const response = await request.json();
+            const cca2Array = response.map(country => country.cca2)
+            cca2Array.sort()
+            cca2Array.forEach(country => {
                 let optionCountry = document.createElement("option");
-                optionCountry.value = country.cca2;
-                optionCountry.textContent = country.cca2;
+                optionCountry.value = country;
+                optionCountry.textContent = country;
                 countrySelect.appendChild(optionCountry)
+                // Reuqired Ver
+                countrySelect.onchange = function (e) {
+                    // Eğer ki TR Seçili İse Form
+                    if(e.target.value == "TR"){
+                        tckimlik.setAttribute('required','')
+                    }else {
+                        tckimlik.removeAttribute('required')
+                    }
+                    // Eğer ki TR Seçili Değilse Form
+                    if (e.target.value !== "TR") {
+                        passaport.setAttribute('required', '')
+                    } else {
+                        passaport.removeAttribute('required')
+                    }
+                }
+
             })
         } catch (error) {
             console.log("apiden gelen hata", error);
@@ -24,9 +43,11 @@ if(countrySelect){
     country()
 }
 
+if (textarea) {
+    textarea.classList.add('form-control', 'mb-3')
+    textarea.rows = 5
+}
 
-textarea.classList.add('form-control', 'mb-3')
-textarea.rows = 5
 
 for (let i = 0; i < labels.length; i++) {
     const label = labels[i];
@@ -70,13 +91,11 @@ for (let i = 0; i < labels.length; i++) {
             label.parentElement.insertBefore(select[k], label.nextSibling)
         }
     }
-}
-
-// Reuqired Ver
-countrySelect.onchange = function(e){
-    if(e.target.value !== "TR"){
-        passaport.setAttribute('required','')
-    }else {
-        passaport.removeAttribute('required')
+    for(let o = 0; o < textareaAll.length; o++) {
+        textareaAll[o].classList.add('form-control')
+        if(label.htmlFor == textareaAll[o].id){
+            label.parentElement.insertBefore(textareaAll[o], label.nextSibling)
+        }
     }
 }
+

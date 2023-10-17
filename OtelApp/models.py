@@ -36,7 +36,7 @@ class KonukBilgileri(models.Model):
     first_name = models.CharField(("Konaklayan Adı"), max_length=50)
     last_name = models.CharField(("Konaklayan Soyadı"), max_length=50)
     nationality = models.CharField(("Konuk Uyruğu"), max_length=50)
-    guest_tc = models.CharField(("Konuk Tc Numarası"), max_length=11)
+    guest_tc = models.CharField(("Konuk Tc Numarası"), max_length=11, blank=True)
     guest_id = models.CharField(("Konaklayan Passaport ID"), max_length=50, blank=True)
     checkin_date = models.DateField(("Giriş Tarihi"), auto_now=False, auto_now_add=False)
     checkout_date = models.DateField(("Çıkış Tarihi"), auto_now=False, auto_now_add=False, blank=True)

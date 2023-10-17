@@ -11,8 +11,8 @@
 <!-- Navbarı içeri al -->
 {% include "./Components/_navbar.html" %}
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
+    <div class="row justify-content-around">
+        <div class="col-md-6">
             <h5 class="text-center mt-3">Oda Özellikleri</h5>
             <div class="card">
                 <div class="card-body">
@@ -26,53 +26,36 @@
                 </div>
             </div>
         </div>
-    </div>
-    {% if odalar.roomactive == True or odalar.roomdefective == True %}
-    {% else %}
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-6">
-            <h5 class="text-center">Müşterilerim:</h5>
-            {% for kisi in musteri %}
-            <h1>{{kisi.first_name}}</h1>
-            {% endfor %}
-
-        </div>
-    </div>
-    <div class="row justify-content-around mt-5">
-        {% for i in count %}
         <div class="col-md-3">
+            <h5 class="text-center mt-3">Oda Menüsü</h5>
             <div class="card">
                 <div class="card-body">
-                    <h5 class="text-center mt-3">Müşteri bilgileri</h5>
-                    <form action="{% url 'misafirkayit' odalar.id %}" method="post">
-                        {% csrf_token %}
-                        <label for="first-name">İsim</label>
-                        <input type="text" placeholder="Adınız" id="first-name" name="first">
-                        <label for="last-name">Soyadınız</label>
-                        <input type="text" placeholder="Soyadınız" id="last-name" name="last">
-                        <label for="countrySelect">Ülke Seç:</label>
-                        <select id="countrySelect">
-                            <option value="">Ülke Seç</option>
-                        </select>
-                        <label for="tckimlik">Tc Numarası</label>
-                        <input type="text" placeholder="TC Kimlik Numarası" id="tckimlik" name="tc">
-                        <label for="passaport">Passaport</label>
-                        <input type="text" placeholder="Passaport Numarası" id="passaport" name="passaport">
-                        <label for="check-in">Check-In Tarihi</label>
-                        <input type="date" id="check-in" name="checkin">
-                        <label for="checkout">Check-Out Tarihi</label>
-                        <input type="date" id="checkout" name="checkout">
-                        <div class="text-center">
-                            <button class="btn btn-success">Kaydet</button>
-                        </div> 
-                    </form>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#guestadd">
+                            Müşteri Ekle
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <h5 class="text-center mt-2">İçeride Bulunan Misafir Bilgileri</h5>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            {% for kisi in musteriler %}
+                            <a href="{% url 'musteridetay' kisi.id %}" class="link-underline link-underline-opacity-0">
+                                <p class="text-center">{{kisi.first_name}} {{kisi.last_name}}</p>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        {% endfor %}
     </div>
+    {% if odalar.roomactive == True or odalar.roomdefective == True %}
+    {% else %}
+    {% include "./Components/_addguestmodal.html" %}
     {% endif %}
-
 </div>
-
 {% endblock site-icerik %}

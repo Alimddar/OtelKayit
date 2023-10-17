@@ -78,7 +78,6 @@ def detailroom(request,odaId):
     context = {}
 
     room = OtelOda.objects.filter(id = odaId).first()
-    context['count'] = range(room.roombadcount)
     context['odalar'] = room
 
     # Formu fronta yollayacağız
@@ -87,7 +86,6 @@ def detailroom(request,odaId):
 
     musteri = KonukBilgileri.objects.filter(room = room).all()
     context['musteriler'] = musteri
-
 
 
     if request.method == "POST":
@@ -99,6 +97,27 @@ def detailroom(request,odaId):
             return redirect('404')
     return render(request, 'roomdetail.html', context)
 
+
+@login_required(login_url="home")
+def detailguest(request, musteriId):
+
+    context = {}
+
+    musteri = KonukBilgileri.objects.filter(id = musteriId).first()
+    context['kisi'] = musteri
+
+    musteriBilgiForm = UpdateGuestDetail(instance = musteri)
+    context['musteriform'] = musteriBilgiForm
+
+    if request.method == "POST":
+        guncelle = UpdateGuestDetail(request.POST, instance = musteri)
+        if guncelle.is_valid():
+            guncelle.save()
+            return redirect('musteridetay', musteriId)
+        else:
+            return redirect('404')
+
+    return render(request, 'guestdetail.html', context)
 
 # 404 sayfası için
 def hatasayfasi(request):

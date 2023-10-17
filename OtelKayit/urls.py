@@ -34,6 +34,7 @@ urlpatterns = [
     path('blokaj', blokaj, name="blok"),
     path('muhasebe', muhasebe, name="muhasebe"),
     path('odadetay/<odaId>', detailroom, name="odadetay"),
+    path('musteridetay/<musteriId>', detailguest, name="musteridetay"),
 
     # Api Path burada!
     path('api/v1/odadetay/<odaId>', guestregister, name="misafirkayit"),
