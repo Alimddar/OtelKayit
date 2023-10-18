@@ -26,6 +26,8 @@ from OtelApp.views import *
 from OtelAppApi.views import *
 
 
+baseapiUrl = "api/v1/"
+
 urlpatterns = [
     # Sayfa Pathleri
     path('admin/', admin.site.urls),
@@ -35,9 +37,11 @@ urlpatterns = [
     path('muhasebe', muhasebe, name="muhasebe"),
     path('odadetay/<odaId>', detailroom, name="odadetay"),
     path('musteridetay/<musteriId>', detailguest, name="musteridetay"),
+    path('logout', logoutUser ,name="logout"),
 
     # Api Path burada!
-    path('api/v1/odadetay/<odaId>', guestregister, name="misafirkayit"),
+    path(f'{baseapiUrl}odadetay/<odaId>', guestregister, name="misafirkayit"),
+    path(f'{baseapiUrl}roomadd',roomadd, name="roomadd"),
 
     # 404 Path'idir!.
     re_path(r'^.*/$', hatasayfasi, name="404"),

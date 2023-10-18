@@ -119,6 +119,12 @@ def detailguest(request, musteriId):
 
     return render(request, 'guestdetail.html', context)
 
+
+# Logout
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
+
 # 404 sayfası için
 def hatasayfasi(request):
 

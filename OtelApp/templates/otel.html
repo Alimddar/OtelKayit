@@ -14,55 +14,63 @@ Otel Sistemi
     <div class="row justify-content-between mt-3">
         <div class="col-md-3">
             <h5 class="text-center">Oda Yapılandırma Menüsü</h5>
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#roomadd">Oda Ekle</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-9">
             <h5 class="text-center">Odalar</h5>
-            <div class="row justify-content-between">
-                {% if odalar %}
-                {% for oda in odalar %}
-                <div class="col-md-3 mb-4">
-                    <a href="{% url 'odadetay' oda.id %}" class="link-underline link-underline-opacity-0">
-                        <div class="card border-0">
-                            <div class="card-body rounded-3 {% if oda.roomisempty == True %}
+            <div class="card shadow-lg">
+                <div class="card-body">
+                        <div class="row justify-content-between">
+                        {% if odalar %}
+                        {% for oda in odalar %}
+                        <div class="col-md-3 mb-4">
+                            <a href="{% url 'odadetay' oda.id %}" class="link-underline link-underline-opacity-0">
+                                <div class="card border-0">
+                                    <div class="card-body rounded-3 {% if oda.roomisempty == True %}
                               bg-info
                               {% elif oda.roomdefective == True or oda.roomactive == True %}
                               bg-warning
                               {% else %}
                               bg-danger
                             {% endif %}">
-                                {% if oda.roomclean == True %}
-                                <div class="mb-1 text-center">
-                                    <span class="badge bg-success shadow-lg text-bg-succes">Temiz</span>
+                                        {% if oda.roomclean == True %}
+                                        <div class="mb-1 text-center">
+                                            <span class="badge bg-success shadow-lg text-bg-succes">Temiz</span>
+                                        </div>
+                                        {% elif oda.roomdefective == True %}
+                                        <div class="mb-1 text-center">
+                                            <span class="badge bg-dark shadow-lg text-bg-succes">Arızalı</span>
+                                        </div>
+                                        {% elif oda.roomclean == False %}
+                                        <div class="mb-1 text-center">
+                                            <span class="badge bg-warning shadow-lg text-bg-succes">Kirli</span>
+                                        </div>
+                                        {% else %}
+                                        <span class="badge text-bg-info">Kullanılabilir</span>
+                                        {% endif %}
+                                        <h5 class="card-title text-center">{{oda.roomnumber}}</h5>
+                                    </div>
                                 </div>
-                                {% elif oda.roomdefective == True %}
-                                <div class="mb-1 text-center">
-                                    <span class="badge bg-dark shadow-lg text-bg-succes">Arızalı</span>
-                                </div>
-                                {% elif oda.roomclean == False %}
-                                <div class="mb-1 text-center">
-                                    <span class="badge bg-warning shadow-lg text-bg-succes">Kirli</span>
-                                </div>
-                                {% else %}
-                                <span class="badge text-bg-info">Kullanılabilir</span>
-                                {% endif %}
-                                <h5 class="card-title text-center">{{oda.roomnumber}}</h5>
-                            </div>
+                            </a>
                         </div>
-                    </a>
+                        {% endfor %}
+                        {% else %}
+                        <p>Oda Eklemelisin</p>
+                        {% endif %}
+                    </div>
                 </div>
-                {% endfor %}
-                {% else %}
-                <p>Oda Eklemelisin</p>
-                {% endif %}
-
-
-
-
             </div>
         </div>
     </div>
 </div>
 
 
-
+{% include "./Components/_addroommodal.html" %}
 {% endblock site-icerik %}

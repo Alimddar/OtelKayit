@@ -24,9 +24,9 @@ class OtelOda(models.Model):
     roomclean = models.BooleanField(("Oda Temiz Mi?"), default=True)
     roomdefective = models.BooleanField(("Oda Arızalı Mı?"), default=False)
     roomactive = models.BooleanField(("Odayı Kapat!"), default=False)
-    roomprice = models.IntegerField(("Odanın Fiyatı"), blank=True)
+    roomprice = models.IntegerField(("Odanın Fiyatı"), default=0, blank=True)
     roomproblemreason = models.TextField(("Odanın Problemi Nedir?"), blank=True)
-    roomisempty = models.BooleanField(("Oda Dolu Mu?"),default=False)
+    roomisempty = models.BooleanField(("Oda Dolu Mu?"), default=False)
 
     def __str__(self) -> str:
         return self.roomtype

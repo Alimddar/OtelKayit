@@ -6,14 +6,19 @@ from django.http import JsonResponse
 # ORM Modellerimiz
 from OtelApp.models import *
 
+# Login MiddleWare
+from django.contrib.auth.decorators import login_required
 
 # Message Lib
 from django.contrib import messages
 
+# Form.py
+from OtelApp.form import UpdateRoomDetail
+
 
 
 # Create your views here.
-
+@login_required(login_url="home")
 def guestregister(request,odaId):
 
     room = OtelOda.objects.filter(id = odaId).first()
@@ -39,3 +44,19 @@ def guestregister(request,odaId):
     else:
         return redirect('home')
 
+
+@login_required(login_url="home")
+def roomadd(request):
+
+    otel = OtelYonetim.objects.filter(owner = request.user).first()
+
+    if request.method == "POST":
+        roomnum = request.POST.get("room-number")
+        roomtype = request.POST.get("room-type")
+        roombadcount = request.POST.get("room-badcount")
+        if roomnum and roomtype and roombadcount:
+            OtelOda.objects.create(otel = otel, roomnumber = roomnum, roomtype = roomtype, roombadcount = roombadcount)
+        else:
+            messages.error(request,"Lütfen Tüm Alanları Doldurunuz.")
+
+    return redirect('oteldashboard')
