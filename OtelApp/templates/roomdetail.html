@@ -14,13 +14,13 @@
     <div class="row justify-content-around">
         <div class="col-md-6">
             <h5 class="text-center mt-3">Oda Özellikleri</h5>
-            <div class="card">
+            <div class="card shadow-lg">
                 <div class="card-body">
                     <form action="{% url 'odadetay' odalar.id %}" method="post">
                         {% csrf_token %}
                         {{form}}
                         <div class="text-center">
-                            <button class="btn btn-success">Güncelle</button>
+                            <button type="submit" class="btn btn-success">Güncelle</button>
                         </div>
                     </form>
                 </div>
@@ -29,10 +29,15 @@
         <div class="col-md-3">
             <h5 class="text-center mt-3">Oda Menüsü</h5>
             <div class="card">
-                <div class="card-body">
+                <div class="card-body shadow-lg">
                     <div class="text-center">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#guestadd">
                             Müşteri Ekle
+                        </button>
+                        <br>
+                        <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal"
+                            data-bs-target="#odasilModal">
+                            Odayı Sil
                         </button>
                     </div>
                 </div>
@@ -40,13 +45,17 @@
             <div class="row justify-content-center">
                 <h5 class="text-center mt-2">İçeride Bulunan Misafir Bilgileri</h5>
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card shadow-lg">
                         <div class="card-body">
+                            {% if musteriler %}
                             {% for kisi in musteriler %}
                             <a href="{% url 'musteridetay' kisi.id %}" class="link-underline link-underline-opacity-0">
                                 <p class="text-center">{{kisi.first_name}} {{kisi.last_name}}</p>
                             </a>
                             {% endfor %}
+                            {% else %}
+                              <h5 class="text-center">Oda Boştur!</h5>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -58,4 +67,7 @@
     {% include "./Components/_addguestmodal.html" %}
     {% endif %}
 </div>
+<!-- DeleteRoom Modal -->
+{% include "./Components/_deleteroommodal.html" %}
+
 {% endblock site-icerik %}

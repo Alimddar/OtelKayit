@@ -42,6 +42,7 @@ urlpatterns = [
     # Api Path burada!
     path(f'{baseapiUrl}odadetay/<odaId>', guestregister, name="misafirkayit"),
     path(f'{baseapiUrl}roomadd',roomadd, name="roomadd"),
+    path(f'{baseapiUrl}roomdelete/<odaId>', roomdelete, name="roomdelete"),
 
     # 404 Path'idir!.
     re_path(r'^.*/$', hatasayfasi, name="404"),

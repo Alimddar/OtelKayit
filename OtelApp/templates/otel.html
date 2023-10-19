@@ -33,7 +33,7 @@ Otel Sistemi
                         <div class="col-md-3 mb-4">
                             <a href="{% url 'odadetay' oda.id %}" class="link-underline link-underline-opacity-0">
                                 <div class="card border-0">
-                                    <div class="card-body rounded-3 {% if oda.roomisempty == True %}
+                                    <div class="card-body rounded-3 shadow-lg {% if oda.roomisempty == True %}
                               bg-info
                               {% elif oda.roomdefective == True or oda.roomactive == True %}
                               bg-warning
@@ -70,7 +70,6 @@ Otel Sistemi
         </div>
     </div>
 </div>
-
 
 {% include "./Components/_addroommodal.html" %}
 {% endblock site-icerik %}

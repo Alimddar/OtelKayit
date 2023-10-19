@@ -1,6 +1,7 @@
 from django.db import models
 
 from django.core import validators
+
 # User modelini çek
 from django.contrib.auth.models import User
 
@@ -29,7 +30,7 @@ class OtelOda(models.Model):
     roomisempty = models.BooleanField(("Oda Dolu Mu?"), default=False)
 
     def __str__(self) -> str:
-        return self.roomtype
+        return str((self.roomnumber))
 
 class KonukBilgileri(models.Model):
     room = models.ForeignKey(OtelOda, verbose_name=("Oda Tipi"), on_delete=models.CASCADE)
@@ -45,8 +46,6 @@ class KonukBilgileri(models.Model):
 
     def __str__(self) -> str:
         return self.first_name
-
-
 
 
 class Muhasebe(models.Model):

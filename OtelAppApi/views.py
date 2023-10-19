@@ -32,14 +32,17 @@ def guestregister(request,odaId):
         checkin = request.POST.get('checkin')
         checkout = request.POST.get('checkout')
         guestnode = request.POST.get('guest_note')
-        if firstname and lastname and nationality and tcid or passport and checkin and checkout and guestnode:
-            KonukBilgileri.objects.create(room = room, first_name = firstname, last_name = lastname, nationality = nationality, guest_tc = tcid, guest_id = passport, checkin_date = checkin, checkout_date = checkout, guest_note = guestnode)
-            room.roomisempty = True
-            room.save()
-            return redirect('odadetay', odaId)
+
+        if firstname and lastname and nationality and checkin and checkout:
+            if tcid or passport is not None:
+                KonukBilgileri.objects.create(room = room, first_name = firstname, last_name = lastname, nationality = nationality, guest_tc = tcid, guest_id = passport, checkin_date = checkin, checkout_date = checkout, guest_note = guestnode)
+                room.roomisempty = True
+                room.save()
+                return redirect('odadetay', odaId)
+            else:
+                messages.error(request,'Tc Kimlik veya Passaport Id Girilmek Zorundadır!')
         else:
             messages.error(request,'Tüm Formları Doldur')
-            
         return redirect('odadetay', odaId)
     else:
         return redirect('home')
@@ -59,4 +62,17 @@ def roomadd(request):
         else:
             messages.error(request,"Lütfen Tüm Alanları Doldurunuz.")
 
+    return redirect('oteldashboard')
+
+
+@login_required(login_url="home")
+def roomdelete(request, odaId):
+
+    if request.user:
+        silinecekOda = OtelOda.objects.filter(id = odaId).first()
+        if silinecekOda is not None:
+            silinecekOda.delete()
+            return redirect('oteldashboard')
+        else:
+            return redirect('404')
     return redirect('oteldashboard')
