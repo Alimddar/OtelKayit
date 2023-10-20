@@ -57,6 +57,10 @@ def otel(request):
     
     context['odalar'] = odalar
 
+    musteriler = KonukBilgileri.objects.filter(otel__owner = request.user).all()
+    context['musteriler'] = musteriler
+
+
     return render(request, "otel.html", context)
 
 

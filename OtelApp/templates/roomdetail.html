@@ -50,11 +50,14 @@
                             {% if musteriler %}
                             {% for kisi in musteriler %}
                             <a href="{% url 'musteridetay' kisi.id %}" class="link-underline link-underline-opacity-0">
-                                <p class="text-center">{{kisi.first_name}} {{kisi.last_name}}</p>
+                                <p class="text-center">{{kisi.first_name}} {{kisi.last_name}} {% if kisi.guest_note %}
+                                    <span class="badge bg-danger ms-1">1</span>
+                                    {% endif %}</p>
                             </a>
+                            
                             {% endfor %}
                             {% else %}
-                              <h5 class="text-center">Oda Boştur!</h5>
+                            <h5 class="text-center">Oda Boştur!</h5>
                             {% endif %}
                         </div>
                     </div>

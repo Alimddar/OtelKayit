@@ -33,6 +33,7 @@ class OtelOda(models.Model):
         return str((self.roomnumber))
 
 class KonukBilgileri(models.Model):
+    otel = models.ForeignKey(OtelYonetim, verbose_name=("Otel"), on_delete=models.CASCADE)
     room = models.ForeignKey(OtelOda, verbose_name=("Oda Tipi"), on_delete=models.CASCADE)
     first_name = models.CharField(("Konaklayan Adı"), max_length=50)
     last_name = models.CharField(("Konaklayan Soyadı"), max_length=50)

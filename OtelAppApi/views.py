@@ -35,7 +35,7 @@ def guestregister(request,odaId):
 
         if firstname and lastname and nationality and checkin and checkout:
             if tcid or passport is not None:
-                KonukBilgileri.objects.create(room = room, first_name = firstname, last_name = lastname, nationality = nationality, guest_tc = tcid, guest_id = passport, checkin_date = checkin, checkout_date = checkout, guest_note = guestnode)
+                KonukBilgileri.objects.create(otel = room.otel , room = room, first_name = firstname, last_name = lastname, nationality = nationality, guest_tc = tcid, guest_id = passport, checkin_date = checkin, checkout_date = checkout, guest_note = guestnode)
                 room.roomisempty = True
                 room.save()
                 return redirect('odadetay', odaId)
@@ -53,16 +53,22 @@ def roomadd(request):
 
     otel = OtelYonetim.objects.filter(owner = request.user).first()
 
-    if request.method == "POST":
-        roomnum = request.POST.get("room-number")
-        roomtype = request.POST.get("room-type")
-        roombadcount = request.POST.get("room-badcount")
-        if roomnum and roomtype and roombadcount:
-            OtelOda.objects.create(otel = otel, roomnumber = roomnum, roomtype = roomtype, roombadcount = roombadcount)
-        else:
-            messages.error(request,"Lütfen Tüm Alanları Doldurunuz.")
+    if otel is not None:
 
-    return redirect('oteldashboard')
+        if request.method == "POST":
+            roomnum = request.POST.get("room-number")
+            roomtype = request.POST.get("room-type")
+            roombadcount = request.POST.get("room-badcount")
+
+            if roomnum and roomtype and roombadcount:
+                OtelOda.objects.create(otel = otel, roomnumber = roomnum, roomtype = roomtype, roombadcount = roombadcount)
+            else:
+                messages.error(request,"Lütfen Tüm Alanları Doldurunuz.")
+        return redirect('oteldashboard')
+    
+    else:
+        return redirect('404')
+
 
 
 @login_required(login_url="home")
