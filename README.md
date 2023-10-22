@@ -10,7 +10,7 @@
 
 <h1>Collaborators</h1>
 <a href="https://github.com/Alimddar">
-<h5>Alimdar Musayev</h5><br>
-<img src="https://avatars.githubusercontent.com/u/110345150?v=4" width="100px" /></a>
+<h5>Alimdar Musayev</h5></a><br>
+<a href="https://github.com/Alimddar"><img src="https://avatars.githubusercontent.com/u/110345150?v=4" width="100px" /></a>
 
 
