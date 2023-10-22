@@ -9,6 +9,8 @@
 
 
 <h1>Collaborators</h1>
-<a href="https://github.com/Alimddar"><img src="https://avatars.githubusercontent.com/u/110345150?v=4" width="100px" /><span sytle="margin-left;20px">Alimdar Musayev</span> </a>
+<a href="https://github.com/Alimddar">
+<h5>Alimdar Musayev</h5><br>
+<img src="https://avatars.githubusercontent.com/u/110345150?v=4" width="100px" /></a>
 
 
