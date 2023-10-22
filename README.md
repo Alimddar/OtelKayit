@@ -8,3 +8,7 @@
 - Muhasebe, Gün Sonu Raporu Modülü, KBS Sistemi, Günlük Aylık Ciro Hesabı, Çalışan Girişleri gibi modüller mevcut olacak
 
 
+<h1>Collaborators</h1>
+<a href="https://github.com/Alimddar"><img src="https://avatars.githubusercontent.com/u/110345150?v=4" width="100px" /><span sytle="margin-left;10px">Alimdar Musayev</span> </a>
+
+
