@@ -8,3 +8,5 @@
 - Muhasebe, Gün Sonu Raporu Modülü, KBS Sistemi, Günlük Aylık Ciro Hesabı, Çalışan Girişleri gibi modüller mevcut olacak
 
 
+
+

@@ -4,7 +4,6 @@
 Otel Sistemi
 {% endblock site-title %}
 
-
 {% block site-icerik %}
 
 <!-- Navbar Includes -->
@@ -43,19 +42,27 @@ Otel Sistemi
             <h5 class="text-center">Odalar</h5>
             <div class="card shadow-lg">
                 <div class="card-body">
-                        <div class="row justify-content-between">
+                    <div class="row justify-content-between">
                         {% if odalar %}
                         {% for oda in odalar %}
                         <div class="col-md-3 mb-4">
                             <a href="{% url 'odadetay' oda.id %}" class="link-underline link-underline-opacity-0">
                                 <div class="card border-0">
-                                    <div class="card-body rounded-3 shadow-lg {% if oda.roomisempty == True %}
-                              bg-info
-                              {% elif oda.roomdefective == True or oda.roomactive == True %}
-                              bg-warning
-                              {% else %}
-                              bg-danger
-                            {% endif %}">
+                                    <div class="card-body rounded-3 shadow-lg 
+                                        {% if oda.roomreserved == True %}
+                                          bg-cc0aaf
+                                        {% elif oda.roomisempty == True %}
+                                          bg-info
+                                        {% elif oda.roomdefective == True or oda.roomactive == True %}
+                                          bg-warning
+                                        {% else %}
+                                          bg-danger
+                                        {% endif %}">
+                                        {% if oda.roomreserved == True %}
+                                        <div class="mb-1 text-center">
+                                            <span class="badge bg-dark shadow-lg text-white">Reserved</span>
+                                        </div>
+                                        {% endif %}
                                         {% if oda.roomclean == True %}
                                         <div class="mb-1 text-center">
                                             <span class="badge bg-success shadow-lg text-bg-succes">Temiz</span>

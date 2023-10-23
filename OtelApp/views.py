@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from datetime import date
 
 
 # Django user modelini al
@@ -123,6 +124,34 @@ def detailguest(request, musteriId):
 
     return render(request, 'guestdetail.html', context)
 
+@login_required(login_url="home")
+def create_reservation(request):
+    if request.method == "POST":
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            reservation = form.save(commit=False)
+            
+           
+            if reservation.is_room_available():
+                room = OtelOda.objects.get(id=reservation.room.id)
+                room.roomreserved = True  
+                room.save()  
+
+                reservation.save()  
+
+                messages.success(request, "Rezervasyon başarılı bir şekilde oluşturuldu!")
+                return redirect('oteldashboard')
+            else:
+                messages.error(request, "Seçilen tarihlerde oda müsait değil!")
+    else:
+        form = ReservationForm()
+
+    return render(request, "create_reservation.html", {"form": form})
+
+@login_required(login_url="home")
+def view_reservations(request):
+    reservations = Reservation.objects.filter(guest__otel__owner=request.user, is_active=True)
+    return render(request, "reservations.html", {"reservations": reservations})
 
 # Logout
 def logoutUser(request):
