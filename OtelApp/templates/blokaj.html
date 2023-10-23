@@ -1,14 +1,114 @@
 {% extends "base.html" %}
 
-
 {% block site-title %}
     Blokaj Sistemi
 {% endblock site-title %}
 
-
 {% block site-icerik %}
+<<<<<<< HEAD
+    {% include "./Components/_navbar.html" %}
+
+    <div class="container">
+        <h1>Blokaj sistemi</h1>
+        <div class="calendar">
+            <div class="calendar-header">
+                <button onclick="goToPreviousMonth()">Geri</button>
+                <span id="currentMonthYear"></span>
+                <button onclick="goToNextMonth()">İleri</button>
+            </div>
+            <table id="calendarTable">
+                <thead>
+                    <tr>
+                        <th>Pt</th>
+                        <th>Sa</th>
+                        <th>Ça</th>
+                        <th>Pe</th>
+                        <th>Cu</th>
+                        <th>Ct</th>
+                        <th>Pa</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .calendar {
+            width: 1200px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-header button {
+            background-color: #3E85C1;
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        #currentMonthYear {
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            text-align: right;
+            padding: 20px 25px 40px 40px;
+            background-color: #f9f9f9;
+            vertical-align: top;
+            color: #000;
+        }
+
+        td {
+            font-size: 12px;
+        }
+
+        th {
+            background-color: #0c3c26;
+            color: white;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0px;
+        }
+        .reserve-olundu {
+            background-color: #ebef0b; 
+        }   
+
+        .misafir-var {
+            background-color: #c30505;  
+        }
+    </style>
+
+
+{% endblock site-icerik %}
+=======
   {% include "./Components/_navbar.html" %}
   <div class="container">
     <h1>Blokaj sistemi yakında</h1>
   </div>
 {% endblock site-icerik %}
+>>>>>>> 8dcb496a93ad8a2c07d8f5608634692144127e1d

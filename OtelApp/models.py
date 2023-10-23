@@ -2,6 +2,10 @@ from django.db import models
 
 from django.core import validators
 
+from datetime import date
+
+from django.core.exceptions import ValidationError
+
 # User modelini çek
 from django.contrib.auth.models import User
 
@@ -28,6 +32,7 @@ class OtelOda(models.Model):
     roomprice = models.IntegerField(("Odanın Fiyatı"), default=0, blank=True)
     roomproblemreason = models.TextField(("Odanın Problemi Nedir?"), blank=True)
     roomisempty = models.BooleanField(("Oda Dolu Mu?"), default=False)
+    roomreserved = models.BooleanField(("Oda Rezerve Edildi Mi?"), default=False)
 
     def __str__(self) -> str:
         return str((self.roomnumber))
@@ -62,3 +67,29 @@ class Muhasebe(models.Model):
         fiat = self.room.roomprice
         self.calculate = fiat
         self.save()
+
+class Reservation(models.Model):
+    guest = models.ForeignKey(KonukBilgileri, verbose_name=("Konaklayan"), on_delete=models.CASCADE)
+    room = models.ForeignKey(OtelOda, verbose_name=("Oda"), on_delete=models.CASCADE)
+    checkin_date = models.DateField(("Giriş Tarihi"))
+    checkout_date = models.DateField(("Çıkış Tarihi"))
+    is_confirmed = models.BooleanField(default=False)  
+
+    class Meta:
+        unique_together = ('room', 'checkin_date', 'checkout_date') 
+    
+    def __str__(self) -> str:
+        return f"Reservation for {self.guest.first_name} in Room {self.room.roomnumber} from {self.checkin_date} to {self.checkout_date}"
+
+    def save(self, *args, **kwargs):
+        if not self.is_room_available():
+            raise ValidationError('Seçilen tarihlerde oda müsait değil!')
+        super().save(*args, **kwargs)
+
+    def is_room_available(self):
+        overlapping_reservations = Reservation.objects.filter(
+            room=self.room,
+            checkin_date__lte=self.checkout_date,
+            checkout_date__gte=self.checkin_date
+        ).exclude(id=self.id)
+        return overlapping_reservations.count() == 0
